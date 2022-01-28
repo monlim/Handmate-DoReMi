@@ -10,9 +10,13 @@ let leftThumb, leftIndex, leftMiddle, leftRing, leftPinky, rightThumb, rightInde
 document.documentElement.addEventListener('mousedown', () => {
   if (Tone.context.state !== 'running') Tone.context.resume();
 });
+
 //Tone.js nodes
+//basic osc
 const basic = new Tone.PolySynth().toDestination();
 let synth = basic;
+
+//casio sound
 const casio = new Tone.Sampler({
   urls: {
     A1: "A1.mp3",
@@ -20,26 +24,32 @@ const casio = new Tone.Sampler({
   },
   baseUrl: "https://tonejs.github.io/audio/casio/",
 }).toDestination();
-const marimba = new Tone.Sampler({
+
+const piano = new Tone.Sampler({
   urls: {
-    C4: "Marimba.mp3",
-    C5: "Marimba_High.mp3",
+    "C4": "C4.mp3",
+    "D#4": "Ds4.mp3",
+    "F#4": "Fs4.mp3",
+    "A4": "A4.mp3",
   },
-  baseUrl: "https://monlim.github.io/Handmutate/audio/marimba/",
+  baseUrl: "https://tonejs.github.io/audio/salamander/",
 }).toDestination();
+
+//plucked violin sound
 const plucked_violin = new Tone.Sampler({
   urls: {
     C4: "Plucked_Violin.mp3",
     C5: "Plucked_Violin_High.mp3",
   },
-  baseUrl: "https://monlim.github.io/Handmutate/audio/plucked_violin/",
+  baseUrl: "https://monlim.github.io/Handmate-DoReMi/audio/plucked_violin/",
 }).toDestination();
 
+//listen for changes to sound
 sound.addEventListener("change", function(){
   if (sound.value === 'basic'){synth = basic};
   if (sound.value === 'casio'){synth = casio}; 
-  if (sound.value === 'marimba'){synth = marimba};
-  if (sound.value === 'plucked_violin'){synth = plucked_violin};
+  if (sound.value === 'piano'){synth = piano};
+  if (sound.value === 'violin'){synth = plucked_violin};
 });
 
 //Trigger note if index fingers touching
